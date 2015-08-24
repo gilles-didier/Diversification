@@ -1,0 +1,13 @@
+Diversification Help
+
+
+
+To use Diversification, please first open a tree file, next a file containing the corresponding fossils table. The next step consists in setting the parameter of the calculus, which are :
+
+    the « Origin », i.e. the starting time of evolution,
+
+    the « End », i.e. the contemporary time,
+
+    the number of samplings of fossil times uniformly drawn from the interval provided in the fossils file.
+
+The estimation of the diversification and fossil find rates is launched by the item « Compute » of the Diversification menu or alternatively the corresponding item of the toolbar. The computation may be stopped by clicking on the « Stop » button. The mean rates and their standard deviation among the fossil times samplings are displayed as soon as the computation ends.

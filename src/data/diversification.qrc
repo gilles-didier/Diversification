@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Help.txt</file>
+        <file>Help.html</file>
+        <file>about.png</file>
+        <file>fossil.png</file>
+        <file>help.png</file>
+        <file>quit.png</file>
+        <file>save.png</file>
+        <file>tree.png</file>
+        <file>compute.png</file>
+        <file>saveas.png</file>
+        <file>new.png</file>
+        <file>options.png</file>
+        <file>Help.pdf</file>
+    </qresource>
+</RCC>

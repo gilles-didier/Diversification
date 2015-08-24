@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>about.png</file>
+        <file>help.png</file>
+        <file>quit.png</file>
+        <file>save.png</file>
+        <file>tree.png</file>
+        <file>HelpTreeShape.html</file>
+        <file>Tree.icns</file>
+        <file>saveas.png</file>
+        <file>new.png</file>
+    </qresource>
+</RCC>
