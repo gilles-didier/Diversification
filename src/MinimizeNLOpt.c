@@ -1,30 +1,3 @@
-/*
-    'Diversification' and 'estimate' estimate diversification and fossilization rates frm tree shapes and fossil dates / 
-    'sample' simulates random trees and fossils finds and saves them in Newick format / 
-    'test' simulates random multiplex to test community detection approaches
-	'complexity' simulates random trees and fossils finds, computes their complexity index and return a CSV file with lines
-		<complexity index>	<likelihood computation time>	<tree size>	<fossil number>
-	'assess' simulates random trees and fossils finds, estimates speciation and extinction rates and returns the mean absolute error
-
-    Copyright (C) 2015  Gilles DIDIER
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
-
-
 #include <stdio.h>
 #include <math.h>
 #include <ctype.h>
@@ -139,7 +112,7 @@ void sprintNLoptOption(char *buffer, TypeNLOptOption *option) {
 
 double toMinimizeTreeFossil(unsigned n, const double *x, double *grad, void *data) {
     TypeModelParam param;
-    param.birth = x[0]+x[1];
+    param.birth = x[0];
     param.death = x[1];
     param.fossil = x[2];
     return -((TypeMinimizationTreeFossilData*)data)->likelihood(((TypeMinimizationTreeFossilData*)data)->tree, ((TypeMinimizationTreeFossilData*)data)->fos, &param);
@@ -155,7 +128,7 @@ double toMinimizeEventListA(unsigned n, const double *x, double *grad, void *dat
 
 double toMinimizeEventListB(unsigned n, const double *x, double *grad, void *data) {
     TypeModelParam param;
-    param.birth = x[1]+x[0];
+    param.birth = x[0];
     param.death = x[1];
     return -((TypeMinimizationEventListData*)data)->likelihood(((TypeMinimizationEventListData*)data)->event, &param);
 }
@@ -167,7 +140,6 @@ int minimizeBirthDeathFossilFromTreeFossil(TypeLikelihoodTreeFosFunction *f, Typ
     nlopt_opt opt;
     TypeMinimizationTreeFossilData data;
     int result, t;
-//int m;
     data.tree = tree;
     data.fos = fos;
     data.likelihood = f;
@@ -177,31 +149,18 @@ int minimizeBirthDeathFossilFromTreeFossil(TypeLikelihoodTreeFosFunction *f, Typ
     nlopt_set_xtol_abs1(opt, option->tolOptim);
     nlopt_set_maxeval(opt, option->maxIter);
     estim->logLikelihood = INFTY;
-//m = -1;
     for(t=0; t<option->trials; t++) {
-        double a, b;
-        a = option->infSpe+UNIF_RAND*(option->supSpe-option->infSpe);
-        b = option->infExt+UNIF_RAND*(option->supExt-option->infExt);
-        if(a<b) {
-            a = option->supSpe-a;
-            b = option->supExt-b;
-        }
-        x[0] = a-b;
-        x[1] = b;
+        x[0] = option->infSpe+UNIF_RAND*(option->supSpe-option->infSpe);
+        x[1] = option->infExt+UNIF_RAND*(option->supExt-option->infExt);
         x[2] = option->infFos+UNIF_RAND*(option->supFos-option->infFos);
-//fprintf(stdout, "S%d\tbirth %.2lf\tdeath %.2lf\tfossil %.2lf (%.2lE)\n", t, x[0]+x[1], x[1], x[2], toMinimizeTreeFossil(3, x, NULL, &data));
         if(((result = nlopt_optimize(opt, x, &minLikelihood)) >= 0) && minLikelihood < estim->logLikelihood) {
             estim->logLikelihood = minLikelihood;
-            estim->param.birth = x[0]+x[1];
+            estim->param.birth = x[0];
             estim->param.death = x[1];
             estim->param.fossil = x[2];
-//            m = t;
         }
-//fprintf(stdout, "R%d\tbirth %.2lf\tdeath %.2lf\tfossil %.2lf (%.2lE)\n", t, x[0]+x[1], x[1], x[2], toMinimizeTreeFossil(3, x, NULL, &data));
     }
     estim->logLikelihood = -estim->logLikelihood;
-//printf("X%d\t%.2lf\t%.2lf\t%.2lf (%.2lE/%.2lE)\n\n", m, estim->param.birth, estim->param.death, estim->param.fossil, estim->logLikelihood, f(tree, fos, &(estim->param)));
-//fflush(stdout);
     nlopt_destroy(opt);
     return result;
 }
@@ -221,19 +180,12 @@ int minimizeBirthDeathFossilFromEventList(TypeLikelihoodEventListFunction *f, Ty
     nlopt_set_maxeval(opt, option->maxIter);
     estim->logLikelihood = INFTY;
     for(t=0; t<option->trials; t++) {
-        double a, b;
-        a = option->infSpe+UNIF_RAND*(option->supSpe-option->infSpe);
-        b = option->infExt+UNIF_RAND*(option->supExt-option->infExt);
-        if(a<b) {
-            a = option->supSpe-a;
-            b = option->supExt-b;
-        }
-        x[0] = a-b;
-        x[1] = b;
+        x[0] = option->infSpe+UNIF_RAND*(option->supSpe-option->infSpe);
+        x[1] = option->infExt+UNIF_RAND*(option->supExt-option->infExt);
         x[2] = option->infFos+UNIF_RAND*(option->supFos-option->infFos);
         if(((result = nlopt_optimize(opt, x, &minLikelihood)) >= 0) && minLikelihood < estim->logLikelihood) {
             estim->logLikelihood = minLikelihood;
-            estim->param.birth = x[0]+x[1];
+            estim->param.birth = x[0];
             estim->param.death = x[1];
             estim->param.fossil = x[2];
         }
@@ -262,21 +214,16 @@ int minimizeBirthDeathFromEventList(TypeLikelihoodEventListFunction *f, TypeList
     nlopt_set_maxeval(opt, option->maxIter);
     estim->logLikelihood = INFTY;
     for(t=0; t<option->trials; t++) {
-        double a, b;
-        a = option->infSpe+UNIF_RAND*(option->supSpe-option->infSpe);
-        b = option->infExt+UNIF_RAND*(option->supExt-option->infExt);
-        if(a<b) {
-            a = option->supSpe-a;
-            b = option->supExt-b;
-        }
-        x[0] = a-b;
-        x[1] = b;
+        x[0] = option->infSpe+UNIF_RAND*(option->supSpe-option->infSpe);
+        x[1] = option->infExt+UNIF_RAND*(option->supExt-option->infExt);
         if(((result = nlopt_optimize(opt, x, &minLikelihood)) >= 0) && minLikelihood < estim->logLikelihood) {
             estim->logLikelihood = minLikelihood;
-            estim->param.birth = x[0]+x[1];
+            estim->param.birth = x[0];
             estim->param.death = x[1];
-        }
+       }
     }
+//fprintf(stdout, "R%d\tbirth %.2lf\tdeath %.2lf (%.2lE)\n", t, (estim->param.birth), (estim->param.death), estim->logLikelihood);
+//fprintf(stdout, "R%d\tbirth %.2lf\tdeath %.2lf (%.2lE)\n", t, fabs(estim->param.birth-1.5), fabs(estim->param.death-1), estim->logLikelihood);
     estim->logLikelihood = -estim->logLikelihood;
     nlopt_destroy(opt);
     return result;
