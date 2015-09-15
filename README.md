@@ -1,7 +1,7 @@
 # Diversification
 Diversification and fossilization rates estimation from the fossil record
 
-Directory "bin" contains a standalone osX application. A Windows version will follow soon.
+Directory "bin" contains a standalone osX application (see "help.pdf"). A Windows version will follow soon.
 
 Directory "data" contains examples of trees with fossil information.
 
