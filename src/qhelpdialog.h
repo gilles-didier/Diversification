@@ -6,12 +6,9 @@
 class QHelpDialog : public QDialog, private Ui::QHelpDialog
 {
 public:
-    QHelpDialog(QWidget * parent = 0);
+    QHelpDialog(QWidget *parent = 0);
     ~QHelpDialog();
-    void setContent(const QString &text);
-    void setBaseUrl(const QUrl &url);
-private:
-    QUrl baseUrl;
+    void setContent(const QUrl &url);
 private slots:
     void savePDF();
 };

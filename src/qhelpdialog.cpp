@@ -12,9 +12,7 @@ QHelpDialog::~QHelpDialog()
 {
 
 }
-void QHelpDialog::setBaseUrl(const QUrl &url) {
-    baseUrl = url;
-}
+
 
 void QHelpDialog::setContent(const QString &text) {
     webView->setHtml(text, baseUrl);

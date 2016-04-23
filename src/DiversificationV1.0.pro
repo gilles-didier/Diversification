@@ -6,7 +6,6 @@
 
 QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-QT       += webkitwidgets
 QT		 += svg
 
 TARGET = Diversification
@@ -18,7 +17,6 @@ LIBS += -L /usr/local/lib
 
 SOURCES += main.cpp\
 		diversificationwindow.cpp \
-	qhelpdialog.cpp \
 	qscaletree.cpp \
 	qtreedrawer.cpp \
 	qtreedrawwidget.cpp \
@@ -48,20 +46,19 @@ SOURCES += main.cpp\
 	gsaveoption.cpp \
 	gutil.cpp \
 	DrawFossilTreePSTricks.c \
-    TreeExtras.c \
-    goptiondialog.cpp \
-    gestimater.cpp \
-    gminimizerthread.cpp \
-    gnodedialog.cpp \
-    gleafdialog.cpp \
-    ghelpdialog.cpp
+	TreeExtras.c \
+	goptiondialog.cpp \
+	gestimater.cpp \
+	gminimizerthread.cpp \
+	gnodedialog.cpp \
+	gleafdialog.cpp \
+	ghelpdialog.cpp
 
 HEADERS  += diversificationwindow.h \
 	Fossil.h \
 	FossilInt.h \
 	MinimizeNLOpt.h \
 	Model.h \
-	qhelpdialog.h \
 	qscaletree.h \
 	qtreedrawer.h \
 	qtreedrawwidget.h \
@@ -87,23 +84,23 @@ HEADERS  += diversificationwindow.h \
 	gsaveoption.h \
 	gutil.h \
 	DrawFossilTreePSTricks.h \
-    TreeExtras.h \
-    goptiondialog.h \
-    gestimater.h \
-    gminimizerthread.h \
-    gnodedialog.h \
-    gleafdialog.h \
-    ghelpdialog.h
+	TreeExtras.h \
+	goptiondialog.h \
+	gestimater.h \
+	gminimizerthread.h \
+	gnodedialog.h \
+	gleafdialog.h \
+	ghelpdialog.h
 
 FORMS    += diversificationwindow.ui \
 	qhelpdialog.ui \
 	gaddfossildialog.ui \
 	geditfossildialog.ui \
 	gsaveoptiondialog.ui \
-    goptiondialog.ui \
-    gnodedialog.ui \
-    gleafdialog.ui \
-    ghelpdialog.ui
+	goptiondialog.ui \
+	gnodedialog.ui \
+	gleafdialog.ui \
+	ghelpdialog.ui
 
 RESOURCES += \
 	data/diversification.qrc
@@ -116,4 +113,4 @@ unix|win32: LIBS += -lgslcblas
 unix|win32: LIBS += -lnlopt
 
 DISTFILES += \
-    data/Help.pdf
+	data/Help.pdf

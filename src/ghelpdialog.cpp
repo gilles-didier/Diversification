@@ -6,7 +6,6 @@ GHelpDialog::GHelpDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::GHelpDialog)
 {
-    baseUrl = QUrl();
     ui->setupUi(this);
 }
 
@@ -16,13 +15,9 @@ GHelpDialog::~GHelpDialog()
 }
 
 
-
-void GHelpDialog::setBaseUrl(const QUrl &url) {
-    baseUrl = url;
-}
-
-void GHelpDialog::setContent(const QString &text) {
-    ui->webView->setHtml(text, baseUrl);
+void GHelpDialog::setContent(const QUrl &url) {
+    ui->textBrowser->setSource(url);
+    ui->textBrowser->show();
 }
 
 void GHelpDialog::savePDF() {

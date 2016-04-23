@@ -15,11 +15,9 @@ class GHelpDialog : public QDialog
 public:
     explicit GHelpDialog(QWidget *parent = 0);
     ~GHelpDialog();
-    void setContent(const QString &text);
-    void setBaseUrl(const QUrl &url);
+    void setContent(const QUrl &url);
 private:
     Ui::GHelpDialog *ui;
-    QUrl baseUrl;
 private slots:
     void savePDF();
 };

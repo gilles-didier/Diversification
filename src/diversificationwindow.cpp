@@ -41,7 +41,9 @@ DiversificationWindow::DiversificationWindow(QWidget *parent) :
     ui->setupUi(this);
     tree = NULL;
     fossilInt = NULL;
-    helpDialog = NULL;
+//    helpDialog = NULL;
+    helpDialog = new GHelpDialog(this);
+    helpDialog->setContent(*new QUrl("qrc:/Help.html"));
     TypeTree *tree;
     tree = Tree::newTree(INC_SIZE_TREE);
     tree->size = 1;
@@ -564,16 +566,6 @@ bool DiversificationWindow::maybeSave()
 
 void DiversificationWindow::help()
 {
-   if(helpDialog == NULL) {
-        helpDialog = new GHelpDialog(this);
-        QFile file(":/Help.html");
-        if(file.open(QIODevice::ReadOnly)) {
-            helpDialog->setContent(QTextStream(&file).readAll());
-            file.close();
-        } else {
-            helpDialog->setContent(QString(HELP_PAGE));
-        }
-    }
     helpDialog->show();
 }
 
