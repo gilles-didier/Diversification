@@ -60,10 +60,10 @@ public:
 
     GNode(int ind, char *name, GTreeWidget *treeWidget);
     enum { Type = UserType + 1 };
-    int type() const Q_DECL_OVERRIDE { return Type; }
-    QRectF boundingRect() const Q_DECL_OVERRIDE;
-    QPainterPath shape() const Q_DECL_OVERRIDE;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE;
+    int type() const { return Type; }
+    QRectF boundingRect() const;
+    QPainterPath shape() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     void setGeometry(QPointF s, QPointF e);
     void setEndPoint(QPointF e);
     void setColor(QColor c);
@@ -78,13 +78,13 @@ public:
     double supTime();
     QPointF getStartPoint();
 protected:
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
-    void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
-    void hoverEnterEvent(QGraphicsSceneHoverEvent * event) Q_DECL_OVERRIDE;
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent * event) Q_DECL_OVERRIDE;
-    bool event(QEvent * e) Q_DECL_OVERRIDE;
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void hoverEnterEvent(QGraphicsSceneHoverEvent * event);
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent * event);
+//    bool event(QEvent * e);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 private:
     GNode *child0, *child1, *parent;
     QPointF start, end;

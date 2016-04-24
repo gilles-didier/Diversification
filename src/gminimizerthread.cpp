@@ -9,7 +9,7 @@ GMinimizerThread::GMinimizerThread(TypeLikelihoodTreeFosFunction *l, TypeTree *t
     options = o;
 }
 
-void GMinimizerThread::run() Q_DECL_OVERRIDE {
+void GMinimizerThread::run() {
     TypeEstimation estim;
     TypeTree treeTmp;
     TypeFossilFeature *ff;

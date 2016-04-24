@@ -41,9 +41,8 @@ DiversificationWindow::DiversificationWindow(QWidget *parent) :
     ui->setupUi(this);
     tree = NULL;
     fossilInt = NULL;
-//    helpDialog = NULL;
     helpDialog = new GHelpDialog(this);
-    helpDialog->setContent(*new QUrl("qrc:/Help.html"));
+    helpDialog->setContent(QUrl::fromEncoded("qrc:/Help.html"));
     TypeTree *tree;
     tree = Tree::newTree(INC_SIZE_TREE);
     tree->size = 1;

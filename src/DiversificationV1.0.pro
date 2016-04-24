@@ -16,7 +16,7 @@ LIBS += -L /usr/local/lib
 
 
 SOURCES += main.cpp\
-		diversificationwindow.cpp \
+	diversificationwindow.cpp \
 	qscaletree.cpp \
 	qtreedrawer.cpp \
 	qtreedrawwidget.cpp \
