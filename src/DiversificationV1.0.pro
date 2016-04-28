@@ -103,7 +103,7 @@ FORMS    += diversificationwindow.ui \
 	ghelpdialog.ui
 
 RESOURCES += \
-	data/diversification.qrc
+ data/diversification.qrc
 
 
 unix|win32: LIBS += -lgsl
